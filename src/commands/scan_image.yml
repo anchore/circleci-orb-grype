@@ -1,0 +1,38 @@
+description: >
+  Scan a Docker image with grype.
+
+parameters:
+  image_name:
+    type: string
+    description: Image repository & tag (eg - "alpine:latest").
+  registry_name:
+    type: string
+    description: Name of private registry (eg - docker.io).
+  registry_user:
+    type: string
+    description: Username for private registry (use env var to populate).
+  registry_pass:
+    type: string
+    description: Password for private registry (use env var to populate).
+  registry_auth_token:
+    type: string
+  fail_on_severity:
+    type: string
+    description: set the return code to 1 if a vulnerability is found with a severity >= the given severity, options=[negligible low medium high critical]
+  output_format:
+    type: string
+    default: json
+    description: report output formatter, formats=[json table cyclonedx template]
+
+steps:
+  - run:
+      name: Analyze image with anchore engine.
+      environment:
+        IMAGE_NAME: << parameters.image_name >>
+        GRYPE_REGISTRY_AUTH_AUTHORITY: << parameters.registry_name >>
+        GRYPE_REGISTRY_AUTH_USERNAME: << parameters.registry_user >>
+        GRYPE_REGISTRY_AUTH_PASSWORD: << parameters.registry_pass >>
+        GRYPE_REGISTRY_AUTH_TOKEN: << parameters.registry_auth_token >>
+        FAIL_ON: << parameters.fail_on_severity >>
+        OUTPUT_FORMAT: << parameters.output_format >>
+      command: <<include(scripts/scan_image.sh)>>
