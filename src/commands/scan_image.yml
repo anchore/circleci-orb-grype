@@ -34,11 +34,11 @@ steps:
   - run:
       name: Analyze image with grype.
       environment:
-        IMAGE_NAME: << parameters.image_name >>
-        GRYPE_REGISTRY_AUTH_AUTHORITY: << parameters.registry_name >>
-        GRYPE_REGISTRY_AUTH_USERNAME: << parameters.registry_user >>
-        GRYPE_REGISTRY_AUTH_PASSWORD: << parameters.registry_pass >>
-        GRYPE_REGISTRY_AUTH_TOKEN: << parameters.registry_auth_token >>
-        FAIL_ON: << parameters.fail_on_severity >>
-        OUTPUT_FORMAT: << parameters.output_format >>
+        IMAGE_NAME: "<< parameters.image_name >>"
+        GRYPE_REGISTRY_AUTH_AUTHORITY: "<< parameters.registry_name >>"
+        GRYPE_REGISTRY_AUTH_USERNAME: "<< parameters.registry_user >>"
+        GRYPE_REGISTRY_AUTH_PASSWORD: "<< parameters.registry_pass >>"
+        GRYPE_REGISTRY_AUTH_TOKEN: "<< parameters.registry_auth_token >>"
+        FAIL_ON: "<< parameters.fail_on_severity >>"
+        OUTPUT_FORMAT: "<< parameters.output_format >>"
       command: ". src/scripts/scan_image.sh"
