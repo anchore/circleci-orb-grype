@@ -4,7 +4,7 @@ description: >
 parameters:
   image_name:
     type: string
-    description: Image repository & tag (eg - "alpine:latest").
+    description: Image name with tag (eg - "alpine:latest").
   registry_name:
     type: string
     default: ""
