@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # set -e
 
-ScanImage() {
+function ScanImage() {
     failOnSeverityFlag=""
     if [ ! -z "$FAIL_ON" -a "$FAIL_ON" != " " ]; then
         failOnSeverityFlag="-f ${FAIL_ON}"
