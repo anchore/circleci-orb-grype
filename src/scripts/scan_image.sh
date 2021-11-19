@@ -20,6 +20,8 @@ function ScanImage() {
     curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b . latest
     TRIMMED_IMAGE_NAME=$(echo "$IMAGE_NAME" | tr -s '/.:' '-')
     ./grype "$IMAGE_NAME" -o "$OUTPUT_FORMAT" > "${TRIMMED_IMAGE_NAME}-vuln.json" ${failOnSeverityFlag:+$failOnSeverityFlag}
+
+    exit 0
 }
 
 # Will not run if sourced from another script.
