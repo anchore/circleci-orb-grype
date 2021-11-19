@@ -41,4 +41,4 @@ steps:
         GRYPE_REGISTRY_AUTH_TOKEN: << parameters.registry_auth_token >>
         FAIL_ON: << parameters.fail_on_severity >>
         OUTPUT_FORMAT: << parameters.output_format >>
-      command: \<<include(scripts/scan_image.sh)\>>
+      command: ". scripts/scan_image.sh"
