@@ -1,9 +1,15 @@
 #!/usr/bin/env bash
+# set -e
 
 ScanImage() {
     failOnSeverityFlag=""
     if [ ! -z "$FAIL_ON" -a "$FAIL_ON" != " " ]; then
         failOnSeverityFlag="-f ${FAIL_ON}"
+    fi
+
+    if [ -z $IMAGE_NAME ]; then
+        echo "IMAGE_NAME must be set"
+        exit 1
     fi
 
     curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b . latest
