@@ -7,17 +7,23 @@ parameters:
     description: Image repository & tag (eg - "alpine:latest").
   registry_name:
     type: string
+    default: ""
     description: Name of private registry (eg - docker.io).
   registry_user:
     type: string
+    default: ""
     description: Username for private registry (use env var to populate).
   registry_pass:
     type: string
+    default: ""
     description: Password for private registry (use env var to populate).
   registry_auth_token:
     type: string
+    default: ""
+    description: Auth token for private registry
   fail_on_severity:
     type: string
+    default: ""
     description: set the return code to 1 if a vulnerability is found with a severity >= the given severity, options=[negligible low medium high critical]
   output_format:
     type: string
