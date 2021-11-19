@@ -13,7 +13,7 @@ parameters:
   run-integration-tests:
     description: An internal flag to prevent integration test from running before a development version has been created.
     type: boolean
-    default: false
+    default: true
   dev-orb-version:
     description: >
       The development version of the orb to test.
