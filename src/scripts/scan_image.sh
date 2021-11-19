@@ -3,7 +3,7 @@
 
 function ScanImage() {
     failOnSeverityFlag=""
-    if [ ! -z "$FAIL_ON" -a "$FAIL_ON" != " " ]; then
+    if [ -n "$FAIL_ON" ] && [ "$FAIL_ON" != " " ]; then
         failOnSeverityFlag="-f ${FAIL_ON}"
     fi
 
