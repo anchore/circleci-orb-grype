@@ -32,7 +32,7 @@ parameters:
 
 steps:
   - run:
-      name: Analyze image with anchore engine.
+      name: Analyze image with grype.
       environment:
         IMAGE_NAME: << parameters.image_name >>
         GRYPE_REGISTRY_AUTH_AUTHORITY: << parameters.registry_name >>
