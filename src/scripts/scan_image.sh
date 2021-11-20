@@ -7,6 +7,10 @@ function ScanImage() {
         failOnSeverityFlag="-f ${FAIL_ON}"
     fi
 
+    if [ -n "$DEBUG_LOGS" ] && [ "$DEBUG_LOGS" != " " ]; then
+        debugFlag="-vv"
+    fi
+
     if [ -z "$IMAGE_NAME" ]; then
         echo "IMAGE_NAME must be set"
         exit 1
@@ -19,7 +23,7 @@ function ScanImage() {
 
     curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b . latest
     TRIMMED_IMAGE_NAME=$(echo "$IMAGE_NAME" | tr -s '/.:' '-')
-    ./grype "$IMAGE_NAME" -o "$OUTPUT_FORMAT" > "${TRIMMED_IMAGE_NAME}-vuln.json" ${failOnSeverityFlag:+$failOnSeverityFlag}
+    ./grype "$IMAGE_NAME" -o "$OUTPUT_FORMAT" > "${TRIMMED_IMAGE_NAME}-vuln.json" ${failOnSeverityFlag:+$failOnSeverityFlag} ${debugFlag:+$debugFlag}
 
     return 0
 }

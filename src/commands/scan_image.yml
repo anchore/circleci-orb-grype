@@ -29,6 +29,10 @@ parameters:
     type: string
     default: json
     description: report output formatter, formats=[json table cyclonedx template]
+  debug_logs:
+    type: boolean
+    default: false
+    description: enable debug logs
 
 steps:
   - run:
@@ -41,4 +45,5 @@ steps:
         GRYPE_REGISTRY_AUTH_TOKEN: "<< parameters.registry_auth_token >>"
         FAIL_ON: "<< parameters.fail_on_severity >>"
         OUTPUT_FORMAT: "<< parameters.output_format >>"
+        DEBUG_LOGS: "<< parameters.debug_logs >>"
       command: ". src/scripts/scan_image.sh"
