@@ -7,7 +7,7 @@ function ScanImage() {
         failOnSeverityFlag="-f ${FAIL_ON}"
     fi
 
-    if [ -n "$DEBUG_LOGS" ] && [ "$DEBUG_LOGS" != " " ]; then
+    if [ "$DEBUG_LOGS" = true ]; then
         debugFlag="-vv"
     fi
 

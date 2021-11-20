@@ -1,14 +1,14 @@
 description: >
-  Scan a Docker image with grype.
+  Scan a Docker image with grype. The scan output goes in a file named after its image, e.g. for alpine:latest the file is `alpine-latest-vuln.json`
 
 parameters:
   image_name:
     type: string
-    description: Image name with tag (eg - "alpine:latest").
+    description: Image name with tag (e.g. "alpine:latest").
   registry_name:
     type: string
     default: ""
-    description: Name of private registry (eg - docker.io).
+    description: Name of private registry (e.g. docker.io).
   registry_user:
     type: string
     default: ""
@@ -31,7 +31,7 @@ parameters:
     description: report output formatter, formats=[json table cyclonedx template]
   debug_logs:
     type: boolean
-    default: false
+    default: true # NOTE: grype gets stuck scanning an image without debug log flag
     description: enable debug logs
 
 steps:
