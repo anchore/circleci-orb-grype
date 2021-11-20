@@ -29,7 +29,7 @@ parameters:
     type: string
     default: json
     description: report output formatter, formats=[json table cyclonedx template]
-  debug_logs:
+  enable_debug_logs:
     type: boolean
     default: true # NOTE: grype gets stuck scanning an image without debug log flag
     description: enable debug logs
@@ -45,5 +45,5 @@ steps:
         GRYPE_REGISTRY_AUTH_TOKEN: "<< parameters.registry_auth_token >>"
         FAIL_ON: "<< parameters.fail_on_severity >>"
         OUTPUT_FORMAT: "<< parameters.output_format >>"
-        DEBUG_LOGS: "<< parameters.debug_logs >>"
+        ENABLE_DEBUG_LOGS: "<< parameters.enable_debug_logs >>"
       command: ". src/scripts/scan_image.sh"

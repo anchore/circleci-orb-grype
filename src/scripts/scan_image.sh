@@ -7,7 +7,9 @@ function ScanImage() {
         failOnSeverityFlag="-f ${FAIL_ON}"
     fi
 
-    if [ "$DEBUG_LOGS" = true ]; then
+    # NOTE: condition passes if DEBUG_LOGS is not false
+    if [ "$ENABLE_DEBUG_LOGS" != "0" ]; then
+        echo "debug logs enabled"
         debugFlag="-vv"
     fi
 
