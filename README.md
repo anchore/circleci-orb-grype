@@ -1,8 +1,5 @@
 # Orb Project Template
-<!---
 [![CircleCI Build Status](https://circleci.com/gh/anchore/circleci-orb-grype.svg?style=shield "CircleCI Build Status")](https://circleci.com/gh/anchore/circleci-orb-grype) [![CircleCI Orb Version](https://badges.circleci.com/orbs/anchore/grype.svg)](https://circleci.com/orbs/registry/orb/anchore/grype) [![GitHub License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://raw.githubusercontent.com/anchore/circleci-orb-grype/master/LICENSE) [![CircleCI Community](https://img.shields.io/badge/community-CircleCI%20Discuss-343434.svg)](https://discuss.circleci.com/c/ecosystem/orbs)
-
---->
 
 A starter template for orb projects. Build, test, and publish orbs automatically on CircleCI with [Orb-Tools](https://circleci.com/orbs/registry/orb/circleci/orb-tools).
 

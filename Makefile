@@ -1,9 +1,12 @@
 .PHONY: clean all
 
-all: build publish clean
+all: build validate publish clean
 
 build:
 	circleci config pack src/ > orb.yml
+
+validate:
+	circleci orb validate orb.yml
 
 publish:
 	circleci orb publish ./orb.yml anchore/grype@dev:alpha --token ${TOKEN}

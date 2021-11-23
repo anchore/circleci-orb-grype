@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# set -e
 
 function ScanImage() {
     failOnSeverityFlag=""
@@ -9,7 +8,7 @@ function ScanImage() {
 
     # NOTE: condition passes if DEBUG_LOGS is not false
     if [ "$ENABLE_DEBUG_LOGS" != "0" ]; then
-        echo "debug logs enabled"
+        # echo "debug logs enabled"
         debugFlag="-vv"
     fi
 
@@ -23,9 +22,25 @@ function ScanImage() {
         exit 1
     fi
 
+    case $OUTPUT_FORMAT in
+        json | JSON)
+            OUTPUT_FILE_FORMAT="json"
+            ;;
+        cyclonedx | cyclonedx-xml)
+            OUTPUT_FILE_FORMAT="xml"
+            ;;
+        table)
+            OUTPUT_FILE_FORMAT="tsv"
+            ;;
+        *)
+            printf "unknown output format '%s'\n" $OUTPUT_FORMAT
+            return 1
+            ;;
+    esac
+
     curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b . latest
     TRIMMED_IMAGE_NAME=$(echo "$IMAGE_NAME" | tr -s '/.:' '-')
-    ./grype "$IMAGE_NAME" -o "$OUTPUT_FORMAT" > "${TRIMMED_IMAGE_NAME}-vuln.json" ${failOnSeverityFlag:+$failOnSeverityFlag} ${debugFlag:+$debugFlag}
+    ./grype "$IMAGE_NAME" -o "$OUTPUT_FORMAT" > "${TRIMMED_IMAGE_NAME}-vuln.${OUTPUT_FILE_FORMAT}" ${failOnSeverityFlag:+$failOnSeverityFlag} ${debugFlag:+$debugFlag}
 
     return 0
 }
