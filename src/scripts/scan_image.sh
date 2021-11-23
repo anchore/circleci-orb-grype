@@ -33,7 +33,7 @@ function ScanImage() {
             OUTPUT_FILE_FORMAT="tsv"
             ;;
         *)
-            printf "unknown output format '%s'\n" $OUTPUT_FORMAT
+            printf "unknown output format '%s'\n" "$OUTPUT_FORMAT"
             return 1
             ;;
     esac
