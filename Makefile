@@ -5,7 +5,7 @@ all: build validate publish clean
 build:
 	circleci config pack src/ > orb.yml
 
-validate:
+validate: build
 	circleci orb validate orb.yml
 
 publish:
