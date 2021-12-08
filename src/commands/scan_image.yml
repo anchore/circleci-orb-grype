@@ -28,11 +28,15 @@ parameters:
   output_format:
     type: string
     default: json
-    description: report output formatter, formats=[json table cyclonedx template]
-  enable_debug_logs:
+    description: "report output formatter, formats: json, table, cyclonedx, template"
+  output_file:
+    type: string
+    default: grype_vulns.output
+    description: file name where the list of vulnerabilities goes.
+  enable_verbose_logs:
     type: boolean
     default: true # NOTE: grype gets stuck scanning an image without debug log flag
-    description: enable debug logs
+    description: enable verbose logs
   grype_version:
     type: string
     default: v0.26.1
@@ -49,6 +53,7 @@ steps:
         GRYPE_REGISTRY_AUTH_TOKEN: "<< parameters.registry_auth_token >>"
         FAIL_ON: "<< parameters.fail_on_severity >>"
         OUTPUT_FORMAT: "<< parameters.output_format >>"
-        ENABLE_DEBUG_LOGS: "<< parameters.enable_debug_logs >>"
+        OUTPUT_FILE: "<< parameters.output_file >>"
+        ENABLE_VERBOSE_LOGS: "<< parameters.enable_verbose_logs >>"
         GRYPE_VERSION: "<< parameters.grype_version >>"
       command: ". src/scripts/scan_image.sh"
