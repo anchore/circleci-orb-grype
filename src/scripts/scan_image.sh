@@ -39,9 +39,9 @@ function ScanImage() {
             ;;
     esac
 
-    curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b . $GRYPE_VERSION
+    curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b . "$GRYPE_VERSION"
     TRIMMED_IMAGE_NAME=$(echo "$IMAGE_NAME" | tr -s '/.:' '-')
-    ./grype "$IMAGE_NAME" -o "$OUTPUT_FORMAT" > "${TRIMMED_IMAGE_NAME}-vuln.${OUTPUT_FILE_FORMAT}" ${failOnSeverityFlag} ${debugFlag}
+    ./grype "$IMAGE_NAME" -o "$OUTPUT_FORMAT" > "${TRIMMED_IMAGE_NAME}-vuln.${OUTPUT_FILE_FORMAT}" "${failOnSeverityFlag}" "${debugFlag}"
 }
 
 # Will not run if sourced from another script.
