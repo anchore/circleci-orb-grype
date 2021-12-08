@@ -1,14 +1,15 @@
 ---
-name: "\U0001F680 Feature Request"
-about: Propose changes to the orb.
+name: Feature request
+about: Suggest an idea for this project
 title: ''
-labels: feature_request
+labels: enhancement
 assignees: ''
+
 ---
 
-## Describe Request:
+**What would you like to be added**:
 
-## Examples:
+**Why is this needed**:
 
-## Supporting Documentation Links:
-
+**Additional context**:
+<!-- Add any other context or screenshots about the feature request here. -->

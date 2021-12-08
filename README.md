@@ -1,5 +1,9 @@
-# Grype Orb
-[![CircleCI Build Status](https://circleci.com/gh/anchore/circleci-orb-grype.svg?style=shield "CircleCI Build Status")](https://circleci.com/gh/anchore/circleci-orb-grype) [![CircleCI Orb Version](https://badges.circleci.com/orbs/anchore/grype.svg)](https://circleci.com/orbs/registry/orb/anchore/grype) [![GitHub License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://raw.githubusercontent.com/anchore/circleci-orb-grype/master/LICENSE) [![CircleCI Community](https://img.shields.io/badge/community-CircleCI%20Discuss-343434.svg)](https://discuss.circleci.com/c/ecosystem/orbs)
+[![CircleCI Build Status](https://circleci.com/gh/anchore/circleci-orb-grype.svg?style=shield "CircleCI Build Status")](https://circleci.com/gh/anchore/circleci-orb-grype) 
+[![CircleCI Orb Version](https://badges.circleci.com/orbs/anchore/grype.svg)](https://circleci.com/orbs/registry/orb/anchore/grype) 
+[![CircleCI Community](https://img.shields.io/badge/community-CircleCI%20Discuss-343434.svg)](https://discuss.circleci.com/c/ecosystem/orbs)
+[![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/anchore/circleci-orb-grype/blob/main/LICENSE)
+
+# Grype Orb for CircleCI
 
 All orbs are tested with .circleci/config.yaml of this repo. Finished orbs will be published to the public CircleCi orb repository under the anchore namespace.
 

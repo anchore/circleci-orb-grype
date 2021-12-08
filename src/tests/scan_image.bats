@@ -2,12 +2,12 @@ setup() {
     source ./src/scripts/scan_image.sh
 }
 
-teardown(){
+teardown() {
     rm -f *.json *.xml *.tsv grype
 }
 
 @test '1: Scan image' {
-    export IMAGE_NAME=docker-archive:./src/tests/alpine.tar
+    export IMAGE_NAME=alpine:latest
     export OUTPUT_FORMAT=json
     ScanImage
     TRIMMED_IMAGE_NAME=$(echo $IMAGE_NAME | tr -s '/.:' '-')
@@ -20,7 +20,7 @@ teardown(){
 }
 
 @test '2: Output on cycloneDX format' {
-    export IMAGE_NAME=docker-archive:./src/tests/alpine.tar
+    export IMAGE_NAME=alpine:latest
     export OUTPUT_FORMAT=cyclonedx
     ScanImage
     TRIMMED_IMAGE_NAME=$(echo $IMAGE_NAME | tr -s '/.:' '-')
@@ -33,7 +33,7 @@ teardown(){
 }
 
 @test '3: Output on table format' {
-    export IMAGE_NAME=docker-archive:./src/tests/alpine.tar
+    export IMAGE_NAME=alpine:latest
     export OUTPUT_FORMAT=table
     ScanImage
     TRIMMED_IMAGE_NAME=$(echo $IMAGE_NAME | tr -s '/.:' '-')
@@ -46,7 +46,7 @@ teardown(){
 }
 
 @test '4: Invalid output format' {
-    export IMAGE_NAME=docker-archive:./src/tests/alpine.tar
+    export IMAGE_NAME=alpine:latest
     export OUTPUT_FORMAT=csv
     ScanImage | tee $result
     if [ $result != "unknown output format 'csv'" ]; then

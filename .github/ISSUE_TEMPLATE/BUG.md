@@ -1,14 +1,25 @@
 ---
-name: "\U0001F41E  Bug report"
-about: Report any bugs encountered while using this orb.
+name: Bug report
+about: Create a report to help us improve
 title: ''
 labels: bug
 assignees: ''
 
 ---
 
-## Orb version:
+**What happened**:
+<!---
+  please include any relevant links to CircleCI workflows or jobs
+  where you saw this behavior
+-->
 
+**What you expected to happen**:
+
+**How to reproduce it (as minimally and precisely as possible)**:
+
+**Anything else we need to know?**:
+
+**Environment**:
 <!---
   e.g., 1.0.0
   find this information in your config.yml file;
@@ -16,18 +27,3 @@ assignees: ''
   expanded configuration file, viewable from the "Configuration" tab of
   any job page, for the orb's specific semantic version number
 -->
-
-## What happened:
-
-<!---
-  please include any relevant links to CircleCI workflows or jobs
-  where you saw this behavior
--->
-
-## Expected behavior:
-
-<!--- what should happen, ideally? -->
-
-## Additional Information:
-
-<!--- Provide any additional context possible. -->
