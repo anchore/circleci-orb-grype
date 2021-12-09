@@ -5,25 +5,29 @@
 
 # Grype Orb for CircleCI
 
-This repo uses [Grype](https://github.com/anchore/grype) to scan vulnerabilities in container images. This orb has one command, it scans a given image from a registry, like docker.io. 
+This repo is the source of the Grype CircleCI Orb, which uses [Grype](https://github.com/anchore/grype) to scan vulnerabilities in container images. This orb has one command, it scans a given image from a registry, like docker.io. 
 
-To use this orb in your repo add the following to the list of jobs in your `.config/config.yml` (assuming you already configured circleCI in your repo, if not please check [Getting Started with CircleCI](https://circleci.com/docs/2.0/getting-started/)):
+To use this orb in your repo add the following to the list of jobs in your `.circleci/config.yml` (assuming you already configured circleCI in your repo, if not please check [Getting Started with CircleCI](https://circleci.com/docs/2.0/getting-started/)):
 
 ``` yaml
-  integration-test-1:
+orbs:
+  grype: anchore/grype@<version>
+
+jobs:
+  integration-test-grype:
     docker:
       - image: cimg/base:stable
     steps:
       - checkout
-      - grype/scan_image:
-          image_name: "ubuntu:latest"
-          output_format: "table"
+      - grype/scan-image:
+          image-name: "ubuntu:latest"
+          output-format: "table"
       - run:
           command: cat grype_vulns.output
           name: print list of vulnerabilities
 ```
 
-Check [Scan Image](src/commands/scan_image.yml) command for more options, such as: fail testing if an image has a vulnerability as severe or equal to `high`, for example.   
+Check [Scan Image](src/commands/scan_image.yml) command for more options, such as: fail testing if an image has a vulnerability as severe or equal to `high`.
 
 ## Development
 All orbs are tested with .circleci/config.yaml of this repo. Finished orbs will be published to the public CircleCi orb repository under the anchore namespace.
