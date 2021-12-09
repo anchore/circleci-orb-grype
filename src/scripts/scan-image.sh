@@ -2,7 +2,6 @@
 set -e
 
 function ScanImage() {
-    failOnSeverityFlag=""
     if [ -n "$FAIL_ON" ] && [ "$FAIL_ON" != " " ]; then
         failOnSeverityFlag="-f ${FAIL_ON}"
     fi
@@ -26,10 +25,3 @@ function ScanImage() {
     curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b . "$GRYPE_VERSION"
     ./grype "$IMAGE_NAME" -o "$OUTPUT_FORMAT" > "${OUTPUT_FILE}" ${failOnSeverityFlag:+$failOnSeverityFlag} ${debugFlag:+$debugFlag}
 }
-
-# Will not run if sourced from another script.
-# This is done so this script may be tested.
-ORB_TEST_ENV="bats-core"
-if [ "${0#*$ORB_TEST_ENV}" == "$0" ]; then
-    ScanImage
-fi

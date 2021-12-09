@@ -1,5 +1,5 @@
 setup() {
-    source ./src/scripts/scan_image.sh
+    source ./src/scripts/scan-image.sh
     export IMAGE_NAME=alpine:latest
     export GRYPE_VERSION="v0.26.1"
     export ENABLE_DEBUG_LOGS=true

@@ -29,9 +29,9 @@ jobs:
       - image: cimg/base:stable
     steps:
       - checkout
-      - grype/scan_image:
-          image_name: "ubuntu:latest"
-          output_format: "table"
+      - grype/scan-image:
+          image-name: "ubuntu:latest"
+          output-format: "table"
       - run:
           command: cat grype_vulns.output
           name: print list of vulnerabilities

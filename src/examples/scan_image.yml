@@ -7,5 +7,5 @@ usage:
   workflows:
     scan-container-image:
       jobs:
-        - grype/scan_name:
-            image_name: "alpine:latest"
+        - grype/scan-name:
+            image-name: "alpine:latest"
