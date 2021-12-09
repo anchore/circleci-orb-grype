@@ -56,4 +56,4 @@ steps:
         OUTPUT_FILE: "<< parameters.output-file >>"
         ENABLE_VERBOSE_LOGS: "<< parameters.enable-verbose-logs >>"
         GRYPE_VERSION: "<< parameters.grype-version >>"
-      command: ". src/scripts/scan-image.sh"
+      command: ". src/scripts/scan-image.sh && ScanImage"
