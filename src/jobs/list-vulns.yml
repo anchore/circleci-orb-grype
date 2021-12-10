@@ -12,7 +12,7 @@ parameters:
     description: set the return code to 1 if a vulnerability is found with a severity >= the given severity, options=[negligible low medium high critical]
   output-format:
     type: string
-    default: json
+    default: table
     description: "report output formatter, formats: json, table, cyclonedx, template"
   output-file:
     type: string
@@ -35,3 +35,6 @@ steps:
       output-file: << parameters.output-file >>
       enable-verbose-logs: << parameters.enable-verbose-logs >>
       grype-version: << parameters.grype-version >>
+  - run:
+      command: cat grype-vulns.output
+      name: print list of vulnerabilities
