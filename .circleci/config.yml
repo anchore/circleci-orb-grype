@@ -77,7 +77,7 @@ workflows:
     jobs:
       # Run any integration tests defined within the `jobs` key.
       - grype/list-vulns:
-        image-name: ubuntu:20.04
+          image-name: ubuntu:20.04
       # Publish a semver version of the orb. relies on
       # the commit subject containing the text "[semver:patch|minor|major|skip]"
       # as that will determine whether a patch, minor or major
