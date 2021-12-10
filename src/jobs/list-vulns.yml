@@ -1,9 +1,7 @@
 description: |
   List vulnerabilities for a given container image.
-
 executor:
   name: default
-
 parameters:
   image-name:
     type: string
@@ -28,13 +26,12 @@ parameters:
     type: string
     default: v0.26.1
     description: version of grype used by this orb.
-
 steps:
   - checkout
   - scan-image:
       image-name: << parameters.image-name >>
       fail-on-severity: << parameters.fail-on-severity >>
-      ouput-format: << parameters.ouput-format >>
+      output-format: << parameters.output-format >>
       output-file: << parameters.output-file >>
-      enable-vervose-logs: << parameters.enable-verbose-logs >>
+      enable-verbose-logs: << parameters.enable-verbose-logs >>
       grype-version: << parameters.grype-version >>
