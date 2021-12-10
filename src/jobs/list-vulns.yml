@@ -1,0 +1,40 @@
+description: |
+  List vulnerabilities for a given container image.
+
+executor:
+  name: default
+
+parameters:
+  image-name:
+    type: string
+    description: Image name with tag (e.g. "alpine:latest").
+  fail-on-severity:
+    type: string
+    default: ""
+    description: set the return code to 1 if a vulnerability is found with a severity >= the given severity, options=[negligible low medium high critical]
+  output-format:
+    type: string
+    default: json
+    description: "report output formatter, formats: json, table, cyclonedx, template"
+  output-file:
+    type: string
+    default: grype-vulns.output
+    description: file name where the list of vulnerabilities goes.
+  enable-verbose-logs:
+    type: boolean
+    default: true # NOTE: grype gets stuck scanning an image without debug log flag
+    description: enable verbose logs
+  grype-version:
+    type: string
+    default: v0.26.1
+    description: version of grype used by this orb.
+
+steps:
+  - checkout
+  - scan-image:
+      image-name: << parameters.image-name >>
+      fail-on-severity: << parameters.fail-on-severity >>
+      ouput-format: << parameters.ouput-format >>
+      output-file: << parameters.output-file >>
+      enable-vervose-logs: << parameters.enable-verbose-logs >>
+      grype-version: << parameters.grype-version >>

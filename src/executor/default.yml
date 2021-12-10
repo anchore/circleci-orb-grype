@@ -1,0 +1,4 @@
+description: >
+  Simple executor
+docker:
+  - image: cimg/base:stable
