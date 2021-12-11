@@ -1,5 +1,8 @@
 .PHONY: clean all
 
+install-circleci-cli:
+	brew install circleci
+
 all: build validate publish clean
 
 build:
