@@ -1,3 +1,9 @@
+filter_release_semver_tags: &filter_release_semver_tags
+  branches:
+    ignore: /.*/
+  tags:
+    only: /^(major|minor|patch)-release-v\d+\.\d+\.\d+$/
+
 version: 2.1
 
 orbs:
@@ -86,9 +92,17 @@ workflows:
       # version will be published or if publishing should
       # be skipped.
       # e.g. [semver:patch] will cause a patch version to be published.
+      - hold_for_approval:
+          type: approval
+          requires:
+            - grype/list-vulns
+            - grype/fail-on-high-severity
+          filters: *filter_release_semver_tags
       - orb-tools/dev-promote-prod-from-commit-subject:
           orb-name: anchore/grype
           context: publish_prod_orb
+          requires:
+            - hold_for_approval
           add-pr-comment: false
           fail-if-semver-not-indicated: true
           publish-version-tag: false
