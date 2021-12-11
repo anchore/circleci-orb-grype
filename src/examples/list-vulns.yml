@@ -1,0 +1,16 @@
+description: >
+  Using grype to scan vulnerabilities in a given image
+usage:
+  version: 2.1
+  orbs:
+    grype: anchore/grype@dev:alpha
+  jobs:
+    list-container-vulnerabilities:
+      executor: grype/default
+      steps:
+        - grype/list-vulns:
+            image-name: "alpine:latest"
+  workflows:
+    scan-my-image:
+      jobs:
+        - list-container-vulnerabilities

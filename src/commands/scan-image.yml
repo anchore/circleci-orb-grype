@@ -1,5 +1,5 @@
 description: >
-  Scan a Docker image with grype. The scan output goes in a file named after its image, e.g. for alpine:latest the file is `alpine-latest-vuln.json`
+  Scan a Docker image with grype. The scan output goes in a file named `grype-vulns.output`, by default, the parameter `output-file` can change it.
 
 parameters:
   image-name:

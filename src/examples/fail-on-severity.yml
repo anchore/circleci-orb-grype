@@ -4,8 +4,9 @@ usage:
   version: 2.1
   orbs:
     grype: anchore/grype@dev:alpha
-  workflows:
-    scan-container-image:
-      jobs:
-        - grype/scan-name:
+  jobs:
+    fail-on-high-severity:
+      executor: grype/default
+      steps:
+        - grype/fail-on-high-severity:
             image-name: "alpine:latest"
