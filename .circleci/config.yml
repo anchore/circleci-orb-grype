@@ -86,6 +86,8 @@ workflows:
           image-name: ubuntu:20.04
       - grype/fail-on-high-severity:
           image-name: ubuntu:20.04
+      - grype/list-vulns:
+          image-name: dir:./
       # Publish a semver version of the orb. relies on
       # the commit subject containing the text "[semver:patch|minor|major|skip]"
       # as that will determine whether a patch, minor or major
