@@ -1,0 +1,41 @@
+description: |
+  List vulnerabilities for a local directory path.
+executor:
+  name: default
+parameters:
+  path-to-scan:
+    type: string
+    description: path to scan (e.g. "/home/user/project/abc" for absolute path, or "./abc" if the execution starts from "/home/user/project/")
+  fail-on-severity:
+    type: string
+    default: ""
+    description: set the return code to 1 if a vulnerability is found with a severity >= the given severity, options=[negligible low medium high critical]
+  output-format:
+    type: string
+    default: json
+    description: "report output formatter, formats: json, table, cyclonedx, template"
+  output-file:
+    type: string
+    default: grype-vulns.output
+    description: file name where the list of vulnerabilities goes.
+  enable-verbose-logs:
+    type: boolean
+    default: true # NOTE: grype gets stuck scanning an image without debug log flag
+    description: enable verbose logs
+  grype-version:
+    type: string
+    default: v0.26.1
+    description: version of grype used by this orb.
+
+steps:
+  - checkout
+  - scan-path:
+      path-to-scan: << parameters.path-to-scan >>
+      fail-on-severity: << parameters.fail-on-severity >>
+      output-format: << parameters.output-format >>
+      output-file: << parameters.output-file >>
+      enable-verbose-logs: << parameters.enable-verbose-logs >>
+      grype-version: << parameters.grype-version >>
+  - run:
+      command: cat << parameters.output-file >>
+      name: print list of vulnerabilities for directory path

@@ -1,22 +1,22 @@
 description: >
-  Scan a Docker image with grype. The scan output goes in a file named `grype-vulns.output`, by default, the parameter `output-file` can change it.
+  Scan a Docker image with grype.
 
 parameters:
   image-name:
     type: string
     description: Image name with tag (e.g. "alpine:latest").
-  registry-name:
+  registry-address:
     type: string
     default: ""
     description: Name of private registry (e.g. docker.io).
   registry-user:
     type: string
     default: ""
-    description: Username for private registry (use env var to populate).
+    description: Username for private registry.
   registry-pass:
     type: string
     default: ""
-    description: Password for private registry (use env var to populate).
+    description: Password for private registry.
   registry-auth-token:
     type: string
     default: ""
@@ -24,11 +24,11 @@ parameters:
   fail-on-severity:
     type: string
     default: ""
-    description: set the return code to 1 if a vulnerability is found with a severity >= the given severity, options=[negligible low medium high critical]
+    description: Set the return code to 1 if a vulnerability is found with a severity >= the given severity, options=[negligible low medium high critical]
   output-format:
     type: string
     default: json
-    description: "report output formatter, formats: json, table, cyclonedx, template"
+    description: Report output formatter, supported formats are json, table, cyclonedx, template
   output-file:
     type: string
     default: grype-vulns.output
@@ -47,7 +47,7 @@ steps:
       name: Analyze image with grype.
       environment:
         IMAGE_NAME: "<< parameters.image-name >>"
-        GRYPE_REGISTRY_AUTH_AUTHORITY: "<< parameters.registry-name >>"
+        GRYPE_REGISTRY_AUTH_AUTHORITY: "<< parameters.registry-address >>"
         GRYPE_REGISTRY_AUTH_USERNAME: "<< parameters.registry-user >>"
         GRYPE_REGISTRY_AUTH_PASSWORD: "<< parameters.registry-pass >>"
         GRYPE_REGISTRY_AUTH_TOKEN: "<< parameters.registry-auth-token >>"

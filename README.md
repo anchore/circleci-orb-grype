@@ -29,6 +29,60 @@ jobs:
 
 Check [Scan Image](src/commands/scan_image.yml) command for more options, such as: fail testing if an image has a vulnerability as severe or equal to `high`.
 
+## Jobs
+### grype/list-image-vulns
+List vulnerabilities for a given container image.
+
+| Parameter           | Description                                                                                                                      | Default              |
+|---------------------|----------------------------------------------------------------------------------------------------------------------------------|----------------------|
+| image-name`         | A container image to scan. (e.g. alpine:latest)                                                                                  |                      |
+| output-format       | Report output formatter. Supported formats are: json, table, cyclonedx, template                                                 | table                |
+| output-file`        | File name where the list of vulnerabilities are saved.                                                                           | ./grype-vulns.output |
+| fail-on-severity    | Fail scanning if a vulnerability is found with a severity >= the given severity. One of: negligible, low, medium, high, critical |                      |
+| enable-verbose-logs | Flag to enable verbose logs for grype.                                                                                           | true                 |
+| grype-version       | Version of grype used for orb                                                                                                    | v0.26.1              |
+
+### grype/list-dir-vulns
+List vulnerabilities for a local directory path.
+
+| Parameter           | Description                                                                                                                      | Default              |
+|---------------------|----------------------------------------------------------------------------------------------------------------------------------|----------------------|
+| path-to-scan`       | Path to scan (e.g. "/home/user/project/abc" for absolute path, or "./abc" if the execution starts from "/home/user/project/")    |                      |
+| output-format       | Report output formatter. Supported formats are: json, table, cyclonedx, template                                                 | table                |
+| output-file`        | File name where the list of vulnerabilities are saved.                                                                           | ./grype-vulns.output |
+| fail-on-severity    | Fail scanning if a vulnerability is found with a severity >= the given severity. One of: negligible, low, medium, high, critical |                      |
+| enable-verbose-logs | Flag to enable verbose logs for grype.                                                                                           | true                 |
+| grype-version       | Version of grype used for orb                                                                                                    | v0.26.1              |
+
+## Commands
+### grype/scan-image
+Scan a Docker image with grype.
+
+| Parameter           | Description                                                                                                                      | Default              |
+|---------------------|----------------------------------------------------------------------------------------------------------------------------------|----------------------|
+| image-name`         | A container image to scan. (e.g. alpine:latest)                                                                                  |                      |
+| output-format       | Report output formatter. Supported formats are: json, table, cyclonedx, template                                                 | table                |
+| output-file`        | File name where the list of vulnerabilities are saved.                                                                           | ./grype-vulns.output |
+| fail-on-severity    | Fail scanning if a vulnerability is found with a severity >= the given severity. One of: negligible, low, medium, high, critical |                      |
+| enable-verbose-logs | Flag to enable verbose logs for grype.                                                                                           | true                 |
+| grype-version       | Version of grype used for orb                                                                                                    | v0.26.1              |
+| registry-address    | Name of private registry (e.g. docker.io, localhost:5000)                                                                        |                      |
+| registry-user       | Username for private registry                                                                                                    |                      |
+| registry-pass       | Password for private registry                                                                                                    |                      |
+| registry-auth-token | Auth token for private registry                                                                                                  |                      |
+
+### grype/scan-path
+Scan a given path with grype.
+
+| Parameter           | Description                                                                                                                      | Default              |
+|---------------------|----------------------------------------------------------------------------------------------------------------------------------|----------------------|
+| path-to-scan`       | Path to scan (e.g. "/home/user/project/abc" for absolute path, or "./abc" if the execution starts from "/home/user/project/")    |                      |
+| output-format       | Report output formatter. Supported formats are: json, table, cyclonedx, template                                                 | table                |
+| output-file`        | File name where the list of vulnerabilities are saved.                                                                           | ./grype-vulns.output |
+| fail-on-severity    | Fail scanning if a vulnerability is found with a severity >= the given severity. One of: negligible, low, medium, high, critical |                      |
+| enable-verbose-logs | Flag to enable verbose logs for grype.                                                                                           | true                 |
+| grype-version       | Version of grype used for orb                                                                                                    | v0.26.1              |
+
 ## Development
 All orbs are tested with .circleci/config.yaml of this repo. Finished orbs will be published to the public CircleCi orb repository under the anchore namespace.
 

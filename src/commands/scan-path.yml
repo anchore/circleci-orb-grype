@@ -1,0 +1,39 @@
+description: >
+  Scan a given path with grype.
+
+parameters:
+  path-to-scan:
+    type: string
+    description: Path to scan (e.g. "/home/user/project/abc" for absolute path, or "./abc" if the execution starts from "/home/user/project/")
+  fail-on-severity:
+    type: string
+    default: ""
+    description: Set the return code to 1 if a vulnerability is found with a severity >= the given severity, options=[negligible low medium high critical]
+  output-format:
+    type: string
+    default: json
+    description: Report output formatter, supported formats are json, table, cyclonedx, template
+  output-file:
+    type: string
+    default: grype-vulns.output
+    description: File name where the list of vulnerabilities are saved.
+  enable-verbose-logs:
+    type: boolean
+    default: true # NOTE: grype gets stuck scanning an image without debug log flag
+    description: Enable verbose logs
+  grype-version:
+    type: string
+    default: v0.26.1
+    description: Version of grype used in execution.
+
+steps:
+  - run:
+      name: Scan path with grype.
+      environment:
+        PATH_TO_SCAN: "<< parameters.path-to-scan >>"
+        FAIL_ON: "<< parameters.fail-on-severity >>"
+        OUTPUT_FORMAT: "<< parameters.output-format >>"
+        OUTPUT_FILE: "<< parameters.output-file >>"
+        ENABLE_VERBOSE_LOGS: "<< parameters.enable-verbose-logs >>"
+        GRYPE_VERSION: "<< parameters.grype-version >>"
+      command: ". src/scripts/scan-path.sh && ScanPath"
