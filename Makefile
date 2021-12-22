@@ -9,8 +9,8 @@ build:
 	circleci config pack src/ > orb.yml
 
 validate: build
-	circleci config validate
 	circleci orb validate orb.yml
+	circleci config validate
 
 publish:
 	circleci orb publish ./orb.yml anchore/grype@dev:alpha --token ${CIRCLE_CI_TOKEN}

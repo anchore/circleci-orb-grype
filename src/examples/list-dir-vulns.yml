@@ -1,0 +1,16 @@
+description: >
+  Using grype to scan vulnerabilities in directory
+usage:
+  version: 2.1
+  orbs:
+    grype: anchore/grype@dev:alpha
+  jobs:
+    list-directory-vulnerabilities:
+      executor: grype/default
+      steps:
+        - grype/list-dir-vulns:
+            path-to-scan: ./project/path
+  workflows:
+    scan-my-directory:
+      jobs:
+        - list-directory-vulnerabilities

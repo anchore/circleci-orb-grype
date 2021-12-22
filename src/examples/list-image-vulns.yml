@@ -8,7 +8,7 @@ usage:
     list-container-vulnerabilities:
       executor: grype/default
       steps:
-        - grype/list-vulns:
+        - grype/list-image-vulns:
             image-name: "alpine:latest"
   workflows:
     scan-my-image:

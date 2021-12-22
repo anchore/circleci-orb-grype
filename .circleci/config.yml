@@ -27,22 +27,6 @@ parameters:
     type: string
     default: "dev:alpha"
 
-# jobs:
-  # Define one or more jobs which will utilize your orb's commands and parameters to validate your changes.
-  # integration-test-1:
-    # - grype/list-vulns:
-    #     image-name: ubuntu:20.04
-    # # docker:
-    #   - image: cimg/base:stable
-    # steps:
-    #   - checkout
-    #   - grype/scan-image:
-    #       image-name: "ubuntu:20.04"
-    #       output-format: "table"
-    #   - run:
-    #       command: cat grype-vulns.output
-    #       name: print list of vulnerabilities
-
 workflows:
   # Prior to producing a development orb (which requires credentials) basic validation, linting, and even unit testing can be performed.
   # This workflow will run on every commit
@@ -81,13 +65,10 @@ workflows:
   integration-test_deploy:
     when: << pipeline.parameters.run-integration-tests >>
     jobs:
-      # Run any integration tests defined within the `jobs` key.
       - grype/list-image-vulns:
           image-name: ubuntu:20.04
-      - grype/fail-on-high-severity:
-          image-name: ubuntu:20.04
       - grype/list-dir-vulns:
-          image-name: dir:./
+          path-to-scan: ./
       # Publish a semver version of the orb. relies on
       # the commit subject containing the text "[semver:patch|minor|major|skip]"
       # as that will determine whether a patch, minor or major
@@ -97,10 +78,9 @@ workflows:
       - hold_for_approval:
           type: approval
           requires:
-            - grype/list-vulns
-            - grype/fail-on-high-severity
+            - grype/list-image-vulns
             - grype/list-dir-vulns
-            filters: *filter_release_semver_tags
+          filters: *filter_release_semver_tags
       - orb-tools/dev-promote-prod-from-commit-subject:
           orb-name: anchore/grype
           context: publish_prod_orb
