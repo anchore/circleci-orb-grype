@@ -21,7 +21,7 @@ workflows:
           image-name: ubuntu:20.04 # grype will pull this image from docker.io, by default, check the scan-image command for more options 
       - grype/list-dir-vulns:
           path-to-scan: ./
-          ```
+```
 
 Check [Scan Image](src/commands/scan_image.yml) command for more options, such as: fail testing if an image has a vulnerability as severe or equal to `high`.
 
