@@ -45,7 +45,7 @@ List vulnerabilities for a local directory path.
 |---------------------|----------------------------------------------------------------------------------------------------------------------------------|----------------------|
 | path-to-scan        | Path to scan (e.g. "/home/user/project/abc" for absolute path, or "./abc" if the execution starts from "/home/user/project/")    |                      |
 | output-format       | Report output formatter. Supported formats are: json, table, cyclonedx, template                                                 | table                |
-| output-file`        | File name where the list of vulnerabilities are saved.                                                                           | ./grype-vulns.output |
+| output-file         | File name where the list of vulnerabilities are saved.                                                                           | ./grype-vulns.output |
 | fail-on-severity    | Fail scanning if a vulnerability is found with a severity >= the given severity. One of: negligible, low, medium, high, critical |                      |
 | enable-verbose-logs | Flag to enable verbose logs for grype.                                                                                           | true                 |
 | grype-version       | Version of grype used for orb                                                                                                    | v0.26.1              |

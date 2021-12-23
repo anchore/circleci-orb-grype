@@ -13,7 +13,7 @@ parameters:
   output-format:
     type: string
     default: table
-    description: "report output formatter, formats: json, table, cyclonedx, template"
+    description: Report output formatter, supported formats are json, table, cyclonedx, template
   output-file:
     type: string
     default: grype-vulns.output
@@ -26,7 +26,24 @@ parameters:
     type: string
     default: v0.26.1
     description: version of grype used by this orb.
-steps:
+  registry-address:
+    type: string
+    default: ""
+    description: Name of private registry (e.g. docker.io).
+  registry-user:
+    type: string
+    default: ""
+    description: Username for private registry.
+  registry-pass:
+    type: string
+    default: ""
+    description: Password for private registry.
+  registry-auth-token:
+    type: string
+    default: ""
+    description: Auth token for private registry
+
+ steps:
   - checkout
   - scan-image:
       image-name: << parameters.image-name >>
@@ -35,6 +52,10 @@ steps:
       output-file: << parameters.output-file >>
       enable-verbose-logs: << parameters.enable-verbose-logs >>
       grype-version: << parameters.grype-version >>
+      registry-address: << parameters.registry-address >>
+      registry-user: << parameters.registry-user >>
+      registry-pass: << parameters.registry-pass >>
+      registry-auth-token: << parameters.registry-auth-token >>
   - run:
       command: cat grype-vulns.output
       name: print list of vulnerabilities

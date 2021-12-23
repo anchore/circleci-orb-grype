@@ -22,7 +22,7 @@ function ScanPath() {
         exit 1
     fi
 
-    echo "scanning dir:$PATH"
+    echo "scanning dir:$PATH_TO_SCAN"
     curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b . "$GRYPE_VERSION"
     ./grype "dir:$PATH_TO_SCAN" -o "$OUTPUT_FORMAT" > "${OUTPUT_FILE}" ${failOnSeverityFlag:+$failOnSeverityFlag} ${debugFlag:+$debugFlag}
     echo "scan results saved in $OUTPUT_FILE"
