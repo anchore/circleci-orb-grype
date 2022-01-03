@@ -43,7 +43,7 @@ parameters:
     default: ""
     description: Auth token for private registry
 
- steps:
+steps:
   - checkout
   - scan-image:
       image-name: << parameters.image-name >>
