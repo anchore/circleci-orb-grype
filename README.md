@@ -93,6 +93,25 @@ circleci orb info anchore/grype
 
 Use `Makefile` for repetitive operations such as: building, validation and publishing to CircleCI. 
 
+### Publishing
+
+1. **Open a new Pull Request to the default branch.** 
+New releases are only published on merges to the default branch. The included .circleci/config.yml configuration file automatically packs, tests, and publishes your orbs. By default, both integration tests and unit tests are enabled for this CI pipeline. It is highly recommended that you add integration tests at a minimum to ensure the functionality of your orb.
+
+2. **Ensure all tests pass.** 
+You can view the results of your tests directly on GitHub within the Pull Request, or, for a more detailed view, watch the entire pipeline on CircleCI.com. 
+
+3. **Title Pull Request with Special Semver Tag.**
+The included CI config uses the orb-tools orb to automatically publish orbs that pass testing on the default branch, provided that the commit message contains the correct tag designated the intended semver release.
+The tag template looks like this: [semver:<increment>], where <increment> is replaced with one of the following values:
+
+| Increment | Description                       |
+|-----------|-----------------------------------|
+| major     | Issue a 1.0.0 incremented release |
+| minor     | Issue a x.1.0 incremented release |
+| patch     | Issue a x.x.1 incremented release |
+| skip      | Do not issue a release            |
+
 ## Resources
 
 [CircleCI Orb Registry Page](https://circleci.com/orbs/registry/orb/anchore/circleci-orb-grype) - The official registry page of this orb for all versions, executors, commands, and jobs described.
