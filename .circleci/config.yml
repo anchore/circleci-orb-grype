@@ -1,7 +1,4 @@
 filter-release-semver-tag: &filter-release-semver-tag
-  branches:
-    only:
-      - main
   tags:
     only: /^(major|minor|patch)-release-v\d+\.\d+\.\d+$/
 
