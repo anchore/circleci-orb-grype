@@ -77,6 +77,7 @@ workflows:
             - grype/list-dir-vulns
       - orb-tools/dev-promote-prod-from-git-tag:
           filters: *filter-release-semver-tag
+          add-pr-comment: false
           orb-name: anchore/grype
           context: publish_prod_orb
           requires:
