@@ -1,6 +1,7 @@
-filter_release_semver_tags: &filter_release_semver_tags
+filter-release-semver-tag: &filter-release-semver-tag
   branches:
-    ignore: /.*/
+    only:
+      - main
   tags:
     only: /^(major|minor|patch)-release-v\d+\.\d+\.\d+$/
 
@@ -69,28 +70,14 @@ workflows:
           image-name: ubuntu:20.04
       - grype/list-dir-vulns:
           path-to-scan: ./
-      # Publish a semver version of the orb. relies on
-      # the commit subject containing the text "[semver:patch|minor|major|skip]"
-      # as that will determine whether a patch, minor or major
-      # version will be published or if publishing should
-      # be skipped.
-      # e.g. [semver:patch] will cause a patch version to be published.
-      - hold_for_approval:
+      - hold-for-approval:
           type: approval
           requires:
             - grype/list-image-vulns
             - grype/list-dir-vulns
-          filters: *filter_release_semver_tags
-      - orb-tools/dev-promote-prod-from-commit-subject:
+      - orb-tools/dev-promote-prod-from-git-tag:
+          filters: *filter-release-semver-tag
           orb-name: anchore/grype
           context: publish_prod_orb
           requires:
-            - hold_for_approval
-          add-pr-comment: false
-          fail-if-semver-not-indicated: true
-          publish-version-tag: false
-          filters:
-            branches:
-              only:
-                - master
-                - main
+            - hold-for-approval
