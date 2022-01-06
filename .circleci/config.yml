@@ -70,6 +70,9 @@ workflows:
       - hold-for-approval:
           filters: *filter_release_semver_tags
           type: approval
+          requires:
+            - grype/list-image-vulns
+            - grype/list-dir-vulns
       - orb-tools/dev-promote-prod-from-git-tag:
           filters: *filter_release_semver_tags
           add-pr-comment: false
