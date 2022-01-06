@@ -45,6 +45,7 @@ workflows:
             - bats/run
             - shellcheck/check
       - orb-tools/trigger-integration-tests-workflow:
+          filters: *filter_release_semver_tags
           name: trigger-integration-dev
           context: publish_dev_orb
           requires:
@@ -62,8 +63,8 @@ workflows:
     when: << pipeline.parameters.run-integration-tests >>
     jobs:
       - hold-for-approval:
-          type: approval
           filters: *filter_release_semver_tags
+          type: approval
       - orb-tools/dev-promote-prod-from-git-tag:
           filters: *filter_release_semver_tags
           add-pr-comment: false
