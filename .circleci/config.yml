@@ -59,7 +59,9 @@ workflows:
             - orb-tools/pack
             - bats/run
             - shellcheck/check
-      # Trigger an integration workflow to test the
+            - grype/list-image-vulns
+            - grype/list-dir-vulns
+       # Trigger an integration workflow to test the
       # dev:${CIRCLE_SHA1:0:7} version of your orb
       - orb-tools/trigger-integration-tests-workflow:
           filters: *filter-semver-tag
@@ -78,9 +80,6 @@ workflows:
       - hold-for-approval:
           type: approval
           filters: *filter-semver-tag
-          requires:
-            - grype/list-image-vulns
-            - grype/list-dir-vulns
       - orb-tools/dev-promote-prod-from-git-tag:
           filters: *filter-semver-tag
           add-pr-comment: false
