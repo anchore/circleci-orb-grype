@@ -10,13 +10,7 @@ orbs:
   bats: circleci/bats@1.0
   shellcheck: circleci/shellcheck@2.0
 
-# Pipeline Parameters
-## These parameters are used internally by orb-tools. Skip to the Jobs section.
 parameters:
-  run-integration-tests:
-    description: An internal flag to prevent integration test from running before a development version has been created.
-    type: boolean
-    default: false
   dev-orb-version:
     description: >
       The development version of the orb to test.
@@ -26,10 +20,7 @@ parameters:
     default: "dev:alpha"
 
 workflows:
-  # Prior to producing a development orb (which requires credentials) basic validation, linting, and even unit testing can be performed.
-  # This workflow will run on every commit
-  test-pack:
-    unless: << pipeline.parameters.run-integration-tests >>
+  lint-test-and-publish:
     jobs:
       - orb-tools/lint:
         filters: *filter-semver-tag
@@ -39,7 +30,6 @@ workflows:
           filters: *filter-semver-tag
           dir: ./src/scripts
           exclude: SC2148
-      # optional: Run BATS tests against your scripts
       - bats/run:
           filters: *filter-semver-tag
           path: ./src/tests
