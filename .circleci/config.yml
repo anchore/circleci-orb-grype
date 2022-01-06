@@ -1,6 +1,6 @@
-filter-release-semver-tag: &filter-release-semver-tag
+filter-semver-tag: &filter-semver-tag
   tags:
-    only: /^(major|minor|patch)-release-v\d+\.\d+\.\d+$/
+    only: /^(major|minor|patch)-v\d+\.\d+\.\d+$/
 
 version: 2.1
 
@@ -31,16 +31,27 @@ workflows:
   test-pack:
     unless: << pipeline.parameters.run-integration-tests >>
     jobs:
-      - orb-tools/lint # Lint Yaml files
-      - orb-tools/pack # Pack orb source
+      - orb-tools/lint:
+        filters: *filter-semver-tag
+      - orb-tools/pack:
+          filters: *filter-semver-tag
       - shellcheck/check:
+          filters: *filter-semver-tag
           dir: ./src/scripts
           exclude: SC2148
       # optional: Run BATS tests against your scripts
       - bats/run:
+          filters: *filter-semver-tag
           path: ./src/tests
+      - grype/list-image-vulns:
+          filters: *filter-semver-tag
+          image-name: ubuntu:20.04
+      - grype/list-dir-vulns:
+          filters: *filter-semver-tag
+          path-to-scan: ./
       # Publish development version(s) of the orb.
       - orb-tools/publish-dev:
+          filters: *filter-semver-tag
           orb-name: anchore/grype
           context: publish_dev_orb # A restricted context containing your private publishing credentials. Will only execute if approved by an authorized user.
           requires:
@@ -51,29 +62,27 @@ workflows:
       # Trigger an integration workflow to test the
       # dev:${CIRCLE_SHA1:0:7} version of your orb
       - orb-tools/trigger-integration-tests-workflow:
+          filters: *filter-semver-tag
           name: trigger-integration-dev
           context: publish_dev_orb
           requires:
             - orb-tools/publish-dev
 
-  # This `integration-test_deploy` workflow will only run
-  # when the run-integration-tests pipeline parameter is set to true.
+  # This workflow will only run when the run-integration-tests
+  # pipeline parameter is set to true.
   # It is meant to be triggered by the "trigger-integration-tests-workflow"
   # job, and run tests on <your orb>@dev:${CIRCLE_SHA1:0:7}.
-  integration-test_deploy:
+  prod-deploy:
     when: << pipeline.parameters.run-integration-tests >>
     jobs:
-      - grype/list-image-vulns:
-          image-name: ubuntu:20.04
-      - grype/list-dir-vulns:
-          path-to-scan: ./
       - hold-for-approval:
           type: approval
+          filters: *filter-semver-tag
           requires:
             - grype/list-image-vulns
             - grype/list-dir-vulns
       - orb-tools/dev-promote-prod-from-git-tag:
-          filters: *filter-release-semver-tag
+          filters: *filter-semver-tag
           add-pr-comment: false
           orb-name: anchore/grype
           context: publish_prod_orb
