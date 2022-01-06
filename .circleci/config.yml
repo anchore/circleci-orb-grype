@@ -61,25 +61,11 @@ workflows:
             - shellcheck/check
             - grype/list-image-vulns
             - grype/list-dir-vulns
-       # Trigger an integration workflow to test the
-      # dev:${CIRCLE_SHA1:0:7} version of your orb
-      - orb-tools/trigger-integration-tests-workflow:
-          filters: *filter-semver-tag
-          name: trigger-integration-dev
-          context: publish_dev_orb
-          requires:
-            - orb-tools/publish-dev
-
-  # This workflow will only run when the run-integration-tests
-  # pipeline parameter is set to true.
-  # It is meant to be triggered by the "trigger-integration-tests-workflow"
-  # job, and run tests on <your orb>@dev:${CIRCLE_SHA1:0:7}.
-  prod-deploy:
-    when: << pipeline.parameters.run-integration-tests >>
-    jobs:
       - hold-for-approval:
           type: approval
           filters: *filter-semver-tag
+          requires:
+            - orb-tools/publish-dev
       - orb-tools/dev-promote-prod-from-git-tag:
           filters: *filter-semver-tag
           add-pr-comment: false
