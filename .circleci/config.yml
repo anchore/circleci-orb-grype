@@ -25,13 +25,6 @@ parameters:
     type: string
     default: "dev:alpha"
 
-jobs:
-  run-grype-jobs:
-    - grype/list-image-vulns:
-        image-name: ubuntu:20.04
-    - grype/list-dir-vulns:
-        path-to-scan: ./
-
 workflows:
   test-pack:
     unless: << pipeline.parameters.run-integration-tests >>
@@ -60,13 +53,20 @@ workflows:
   integration-tests:
     when: << pipeline.parameters.run-integration-tests >>
     jobs:
-      - run-grype-jobs
+      - grype/list-image-vulns:
+          image-name: ubuntu:20.04
+      - grype/list-dir-vulns:
+          path-to-scan: ./
 
   publish-prod:
     unless: << pipeline.parameters.run-integration-tests >>
     jobs:
-      - run-grype-jobs:
+      - grype/list-image-vulns:
           filters: *filter_release_semver_tags
+          image-name: ubuntu:20.04
+      - grype/list-dir-vulns:
+          filters: *filter_release_semver_tags
+          path-to-scan: ./
       - hold-for-approval:
           filters: *filter_release_semver_tags
           type: approval
