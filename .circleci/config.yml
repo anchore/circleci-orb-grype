@@ -76,6 +76,7 @@ workflows:
       - orb-tools/dev-promote-prod-from-git-tag:
           filters: *filter_release_semver_tags
           add-pr-comment: false
+          required-branch: main
           orb-name: anchore/grype
           context: publish_prod_orb
           requires:
