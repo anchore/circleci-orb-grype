@@ -24,7 +24,7 @@ parameters:
     description: enable verbose logs
   grype-version:
     type: string
-    default: v0.26.1
+    default: $GRYPE_VERSION
     description: version of grype used by this orb.
   registry-address:
     type: string
