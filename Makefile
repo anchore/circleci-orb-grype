@@ -3,10 +3,13 @@
 install-circleci-cli:
 	brew install circleci
 
+tests:
+	bats src/tests/*
+
 all: build validate publish clean
 
 build:
-	circleci config pack src/ > orb.yml
+	circleci orb pack src/ > orb.yml
 
 validate: build
 	circleci orb validate orb.yml
