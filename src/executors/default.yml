@@ -1,4 +1,8 @@
 description: >
   Simple executor
+
+environment:
+  GRYPE_VERSION: v0.32.0
+
 docker:
   - image: cimg/base:stable
