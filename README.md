@@ -23,7 +23,7 @@ workflows:
           path-to-scan: ./
 ```
 
-Check [Scan Image](src/commands/scan_image.yml) command for more options, such as: fail testing if an image has a vulnerability as severe or equal to `high`.
+Check [Scan Image](src/commands/scan-image.yml) command for more options, such as: fail testing if an image has a vulnerability as severe or equal to `high`.
 
 ## Jobs
 ### grype/list-image-vulns
